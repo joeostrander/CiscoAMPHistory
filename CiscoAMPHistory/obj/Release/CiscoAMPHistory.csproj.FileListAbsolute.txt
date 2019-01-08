@@ -8,3 +8,5 @@ C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\ob
 C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.csproj.GenerateResource.Cache
 C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.exe
 C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.pdb
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\Resources\System.Data.SQLite.dll
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\Resources\SQLite.Interop.dll

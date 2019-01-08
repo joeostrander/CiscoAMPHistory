@@ -61,26 +61,29 @@ namespace CiscoAMPHistory
 
 
             AddDLL();
-            
+
         }
 
         private void AddDLL()
         {
             string strCurrentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
-            System.Environment.SetEnvironmentVariable("PATH", strCurrentPath + ";" + strParentDir, EnvironmentVariableTarget.Process);
+            System.Environment.SetEnvironmentVariable("PATH", strParentDir + ";" + strCurrentPath, EnvironmentVariableTarget.Process);
             Directory.SetCurrentDirectory(strParentDir);
+
 
             string strFile1 = "System.Data.SQLite.dll";
             string strFile2 = "SQLite.Interop.dll";
+
             System.Reflection.AssemblyName file1;
-            
+
             try
             {
                 file1 = System.Reflection.AssemblyName.GetAssemblyName(strFile1);
-                
+
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception:  {0}", ex.Message);
                 try
                 {
                     try
@@ -100,7 +103,9 @@ namespace CiscoAMPHistory
                             ms2.WriteTo(fs2);
                         }
 
-                        file1 = System.Reflection.AssemblyName.GetAssemblyName(strFile1);
+                        //file1 = System.Reflection.AssemblyName.GetAssemblyName(strFile1);
+                        MessageBox.Show("DLLs created, please relaunch the application.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Application.Exit();
                     }
                     catch (Exception ex3)
                     {
@@ -162,7 +167,6 @@ namespace CiscoAMPHistory
             
             dataGridView1.Rows.Clear();
             enableControls(false);
-
             if (checkInputFile())
             {
                 await Task.Run(() => LoadData());
@@ -177,14 +181,15 @@ namespace CiscoAMPHistory
             string connString = string.Format("Data Source={0}", dbPath);
 
             var sql = "SELECT path, hash, lastref, type FROM path_history ORDER by lastref desc";
-
-            try
+            
+           try
             {
-
+           
                 using (SQLiteConnection con = new SQLiteConnection())
                 {
                     con.ConnectionString = connString;
 
+                
                     using (SQLiteCommand cmd = new SQLiteCommand(sql, con))
                     {
                         con.Open();
