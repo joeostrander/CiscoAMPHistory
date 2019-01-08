@@ -168,108 +168,115 @@ namespace CiscoAMPHistory
                 await Task.Run(() => LoadData());
             }
 
-            //ColorLines(dataGridView1);
             enableControls(true);
         }
 
         private async void LoadData() { 
             
-
-        //listActionType["7"]);   
-        
+       
             string connString = string.Format("Data Source={0}", dbPath);
 
             var sql = "SELECT path, hash, lastref, type FROM path_history ORDER by lastref desc";
 
-            using (SQLiteConnection con = new SQLiteConnection())
+            try
             {
-                con.ConnectionString = connString;
 
-                using (SQLiteCommand cmd = new SQLiteCommand(sql, con))
+                using (SQLiteConnection con = new SQLiteConnection())
                 {
-                    con.Open();
+                    con.ConnectionString = connString;
 
-                    int count = 0;
+                    using (SQLiteCommand cmd = new SQLiteCommand(sql, con))
+                    {
+                        con.Open();
 
-                    DataSet ds = new DataSet();
-                    ds.Tables.Add("history");
-                    ds.Tables["history"].Columns.Add("#");
-                    ds.Tables["history"].Columns.Add("Path");
-                    ds.Tables["history"].Columns.Add("LastRef");
-                    ds.Tables["history"].Columns.Add("Description");
-                    ds.Tables["history"].Columns.Add("Hash");
-                    
+                        int count = 0;
 
-                    using (var dr = await cmd.ExecuteReaderAsync()) {
-                        
-                        while (await dr.ReadAsync())
+                        DataSet ds = new DataSet();
+                        ds.Tables.Add("history");
+                        ds.Tables["history"].Columns.Add("#");
+                        ds.Tables["history"].Columns.Add("Path");
+                        ds.Tables["history"].Columns.Add("LastRef");
+                        ds.Tables["history"].Columns.Add("Description");
+                        ds.Tables["history"].Columns.Add("Hash");
+
+
+                        using (var dr = await cmd.ExecuteReaderAsync())
                         {
 
-                            string strHash = dr.GetString(1);
-                            long secs = (long)dr.GetValue(2);
-                            DateTime dtLastRef = DateTimeOffset.FromUnixTimeSeconds(secs).LocalDateTime;
-
-                            string desc = listActionType[dr.GetValue(3).ToString()];
-                            
-                            count++;
-                            DataGridViewRow row = new DataGridViewRow();
-                            row.CreateCells(dataGridView1);
-                            row.Cells[0].Value = count;
-                            row.Cells[1].Value = "";
-                            row.Cells[2].Value = dtLastRef;
-                            row.Cells[3].Value = desc;
-                            row.Cells[4].Value = strHash;
-                            
-
-
-                            
-                            var path_numeric = dr.GetString(0);
-                            string[] arrPath = path_numeric.Split('\\');
-
-                            for (int i = 0; i < arrPath.Length; i++)
+                            while (await dr.ReadAsync())
                             {
-                                // foreach (var path in arrPath)
-                                var path = arrPath[i];
-                                var sqlTmp = string.Format("select name from component where id={0} LIMIT 1", path);
 
-                                using (SQLiteCommand cmdTmp = new SQLiteCommand(sqlTmp, con))
+                                string strHash = dr.GetString(1);
+                                long secs = (long)dr.GetValue(2);
+                                DateTime dtLastRef = DateTimeOffset.FromUnixTimeSeconds(secs).LocalDateTime;
+
+                                string desc = listActionType[dr.GetValue(3).ToString()];
+
+                                count++;
+                                DataGridViewRow row = new DataGridViewRow();
+                                row.CreateCells(dataGridView1);
+                                row.Cells[0].Value = count;
+                                row.Cells[1].Value = "";
+                                row.Cells[2].Value = dtLastRef;
+                                row.Cells[3].Value = desc;
+                                row.Cells[4].Value = strHash;
+
+
+
+
+                                var path_numeric = dr.GetString(0);
+                                string[] arrPath = path_numeric.Split('\\');
+
+                                for (int i = 0; i < arrPath.Length; i++)
                                 {
-                                    using (var drTmp = await cmdTmp.ExecuteReaderAsync())
+                                    // foreach (var path in arrPath)
+                                    var path = arrPath[i];
+                                    var sqlTmp = string.Format("select name from component where id={0} LIMIT 1", path);
+
+                                    using (SQLiteCommand cmdTmp = new SQLiteCommand(sqlTmp, con))
                                     {
-                                        while (await drTmp.ReadAsync())
+                                        using (var drTmp = await cmdTmp.ExecuteReaderAsync())
                                         {
-                                            arrPath[i] = drTmp.GetString(0);
-                                            //Console.WriteLine("??? {0}", drTmp.GetValue(0).ToString());
+                                            while (await drTmp.ReadAsync())
+                                            {
+                                                arrPath[i] = drTmp.GetString(0);
+                                                //Console.WriteLine("??? {0}", drTmp.GetValue(0).ToString());
+                                            }
                                         }
                                     }
+
                                 }
 
-                            }
+                                string fullPath = string.Join("\\", arrPath);
+                                row.Cells[1].Value = fullPath;
 
-                            string fullPath = string.Join("\\", arrPath);
-                            row.Cells[1].Value = fullPath;
-                            
 
-                            if (dataGridView1.InvokeRequired)
-                            {
-                                dataGridView1.Invoke(new AddDataGridViewRowCallback(AddToDataGridView), new object[] { dataGridView1, row });
-                            }
-                            else
-                            {
-                                AddToDataGridView(dataGridView1, row);
+                                if (dataGridView1.InvokeRequired)
+                                {
+                                    dataGridView1.Invoke(new AddDataGridViewRowCallback(AddToDataGridView), new object[] { dataGridView1, row });
+                                }
+                                else
+                                {
+                                    AddToDataGridView(dataGridView1, row);
 
+                                }
                             }
                         }
+
+
+
+
                     }
 
-                    
 
-                    
+
                 }
-
-                
-                
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:\n\n"+ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
             
             
 
@@ -300,29 +307,54 @@ namespace CiscoAMPHistory
             }
         }
 
-        /*
-
-        private void ColorLines(DataGridView dgv)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int count = 0;
+            AboutBox1 ab = new AboutBox1();
+            ab.ShowDialog();
+        }
+
+        private void ExportToCSV(DataGridView dgv)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV Files|*.csv";
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            string strFilename = sfd.FileName;
+            StreamWriter writer = new StreamWriter(strFilename);
+
+            string strHeaders = "";
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                strHeaders += "\"" + col.HeaderText + "\",";
+            }
+            strHeaders = strHeaders.TrimEnd(',');
+            writer.WriteLine(strHeaders);
+
             foreach (DataGridViewRow row in dgv.Rows)
             {
-                count += 1;
+                string strRowText = "";
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    strRowText += "\"" + cell.Value.ToString().Replace("\"", "\"\"") + "\",";
+                }
                 
-                if (count % 2 == 0)
-                {
-                    row.DefaultCellStyle.BackColor = Color.OldLace;
-                }
-                else
-                {
-                    row.DefaultCellStyle.BackColor = Color.White;
-                }
-
-                row.DefaultCellStyle.ForeColor = Color.Black;
-
+                strRowText = strRowText.TrimEnd(',');
+                writer.WriteLine(strRowText);
             }
+
+            writer.Close();
+            MessageBox.Show("See file:  " + strFilename, "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        */
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportToCSV(dataGridView1);
+        }
     }
 
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFilePath = new System.Windows.Forms.TextBox();
@@ -35,7 +36,14 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonLoadData = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripForm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStripDataGridView.SuspendLayout();
+            this.contextMenuStripForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -89,11 +97,48 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStripDataGridView;
             this.dataGridView1.Location = new System.Drawing.Point(12, 52);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(675, 317);
             this.dataGridView1.TabIndex = 5;
+            // 
+            // contextMenuStripDataGridView
+            // 
+            this.contextMenuStripDataGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToCSVToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.contextMenuStripDataGridView.Name = "contextMenuStripDataGridView";
+            this.contextMenuStripDataGridView.ShowImageMargin = false;
+            this.contextMenuStripDataGridView.Size = new System.Drawing.Size(121, 48);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // contextMenuStripForm
+            // 
+            this.contextMenuStripForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStripForm.Name = "contextMenuStripDataGridView";
+            this.contextMenuStripForm.ShowImageMargin = false;
+            this.contextMenuStripForm.Size = new System.Drawing.Size(83, 26);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(82, 22);
+            this.toolStripMenuItem1.Text = "&About";
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.exportToCSVToolStripMenuItem.Text = "&Export to CSV";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -101,6 +146,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 381);
+            this.ContextMenuStrip = this.contextMenuStripForm;
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.buttonLoadData);
             this.Controls.Add(this.button1);
@@ -115,6 +161,8 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStripDataGridView.ResumeLayout(false);
+            this.contextMenuStripForm.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,6 +176,11 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonLoadData;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDataGridView;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripForm;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 
