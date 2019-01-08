@@ -1,0 +1,10 @@
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\CiscoAMPHistory.exe.config
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\CiscoAMPHistory.exe
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\CiscoAMPHistory.pdb
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\bin\Release\System.Data.SQLite.dll
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.AboutBox1.resources
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.Form1.resources
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.Properties.Resources.resources
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.csproj.GenerateResource.Cache
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.exe
+C:\Users\qojmo2\Google Drive\DEV\VisualStudio\CiscoAMPHistory\CiscoAMPHistory\obj\Release\CiscoAMPHistory.pdb
